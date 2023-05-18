@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import {
   MDBContainer,
   MDBTabs,
@@ -10,11 +10,11 @@ import {
   MDBIcon,
   MDBInput,
 } from "mdb-react-ui-kit";
-import { AuthContext } from "../../context/authContext";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
 import { auth, googleProvider } from "../../config/firebaseConfig";
 
@@ -63,6 +63,7 @@ function SignInForm() {
 
   const signInEmail = useRef(null);
   const signInPassword = useRef(null);
+  const signUpUsername = useRef(null);
   const signUpEmail = useRef(null);
   const signUpPassword = useRef(null);
 
@@ -84,10 +85,13 @@ function SignInForm() {
         auth,
         signUpEmail.current.value,
         signUpPassword.current.value
-      );
+      ).catch((err) => console.log(err));
+      await updateProfile(auth.currentUser, {
+        displayName: signUpUsername.current.value,
+      }).catch((err) => console.log(err));
     } catch (err) {
       console.error(err);
-      alert("Invalid Sign In Credentials");
+      alert("Please make sure your password is more than 6 characters.");
     }
   };
 
@@ -164,8 +168,8 @@ function SignInForm() {
           <MDBInput
             wrapperClass="mb-4"
             label="Username"
-            id="form1"
             type="text"
+            ref={signUpUsername}
           />
           <MDBInput
             wrapperClass="mb-4"
