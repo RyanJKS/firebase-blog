@@ -53,6 +53,7 @@ function App() {
             ))}
           </Grid>
         <PCard /> */}
+          <h1>New Post</h1>
         </div>
 
         <Footer />
