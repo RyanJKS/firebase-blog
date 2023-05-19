@@ -21,16 +21,16 @@ import {
 } from "mdb-react-ui-kit";
 import { AuthContext } from "../../context/authContext";
 
-function PostCard({ title, description, id }) {
+function PostCard({ title, description, id, docId }) {
   const [optSmModal, setOptSmModal] = useState(false);
   const [updateTitle, setUpdateTitle] = useState("");
   const [updateDescription, setUpdateDescritpion] = useState("");
-  const { isAuthorised } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
   const toggleShow = () => setOptSmModal(!optSmModal);
 
-  const handleUpdate = async (id) => {
-    const postDoc = doc(db, "posts", id);
+  const handleUpdate = async (docId) => {
+    const postDoc = doc(db, "posts", docId);
     try {
       await updateDoc(postDoc, {
         postTitle: updateTitle,
@@ -43,8 +43,8 @@ function PostCard({ title, description, id }) {
     window.location.reload();
   };
 
-  const handlePostDelete = async (id) => {
-    const postDoc = doc(db, "posts", id);
+  const handlePostDelete = async (docId) => {
+    const postDoc = doc(db, "posts", docId);
     try {
       await deleteDoc(postDoc);
       window.location.reload();
@@ -64,7 +64,7 @@ function PostCard({ title, description, id }) {
       >
         <CardMedia
           sx={{ height: 140 }}
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image="https://mdbootstrap.com/wp-content/uploads/2020/06/vertical.webp"
           title="green iguana"
         />
         <CardContent>
@@ -75,7 +75,7 @@ function PostCard({ title, description, id }) {
             {description}
           </Typography>
         </CardContent>
-        {isAuthorised ? (
+        {currentUser === id ? (
           <CardActions sx={{ justifyContent: "space-evenly" }}>
             <Button size="small" onClick={toggleShow}>
               Update
@@ -101,6 +101,7 @@ function PostCard({ title, description, id }) {
                         className="form-control"
                         type="text"
                         required
+                        value={updateTitle}
                         onChange={(e) => setUpdateTitle(e.target.value)}
                       />
                     </div>
@@ -113,6 +114,7 @@ function PostCard({ title, description, id }) {
                         cols="40"
                         className="form-control"
                         required
+                        value={updateDescription}
                         onChange={(e) => setUpdateDescritpion(e.target.value)}
                       />
                     </div>
@@ -121,14 +123,14 @@ function PostCard({ title, description, id }) {
                     <MDBBtn color="secondary" onClick={toggleShow}>
                       Close
                     </MDBBtn>
-                    <MDBBtn color="indigo" onClick={() => handleUpdate(id)}>
+                    <MDBBtn color="indigo" onClick={() => handleUpdate(docId)}>
                       Save Changes
                     </MDBBtn>
                   </MDBModalFooter>
                 </MDBModalContent>
               </MDBModalDialog>
             </MDBModal>
-            <Button size="small" onClick={() => handlePostDelete(id)}>
+            <Button size="small" onClick={() => handlePostDelete(docId)}>
               Delete
             </Button>
           </CardActions>

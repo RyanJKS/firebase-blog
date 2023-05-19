@@ -28,6 +28,7 @@ export default function CreatePost() {
         postTitle: title.value,
         postDescription: description.value,
         userId: auth.currentUser?.uid,
+        authorUsername: auth?.currentUser?.displayName,
       });
     } catch (err) {
       console.error(err);

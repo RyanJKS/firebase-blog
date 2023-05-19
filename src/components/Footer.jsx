@@ -21,11 +21,7 @@ function Copyright(props) {
 }
 
 function Footer() {
-  return (
-    <div style={{ position: "absolute", bottom: "0", width: "100%" }}>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
-    </div>
-  );
+  return <Copyright sx={{ mt: 8, mb: 4 }} />;
 }
 
 export default Footer;

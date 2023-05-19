@@ -7,12 +7,10 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = (props) => {
   const [currentUser, setCurrentUser] = useState("");
-  const [displayname, setDisplayName] = useState("");
 
   onAuthStateChanged(auth, async (user) => {
     if (user !== null) {
       setCurrentUser(user.uid);
-      setDisplayName(user.displayName);
     } else {
       setCurrentUser("");
     }
@@ -35,7 +33,6 @@ export const AuthContextProvider = (props) => {
           id: doc.id,
         }));
         setPosts(filteredData);
-        console.log(filteredData);
       } catch (err) {
         console.error(err);
       }
@@ -50,7 +47,6 @@ export const AuthContextProvider = (props) => {
     <AuthContext.Provider
       value={{
         currentUser,
-        displayname,
         posts,
       }}
     >
