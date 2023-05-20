@@ -36,15 +36,15 @@ export default function PostCard({
   };
 
   return (
-    <MDBCard style={{ maxWidth: "600px" }}>
+    <MDBCard style={{ minWidth: "600px", minHeight: "400px" }}>
       <MDBRow className="g-0">
-        <MDBCol md="4">
+        {/* <MDBCol md="4">
           <MDBCardImage
             src="https://mdbootstrap.com/wp-content/uploads/2020/06/vertical.webp"
             alt="something"
             fluid
           />
-        </MDBCol>
+        </MDBCol> */}
         <MDBCol md="8">
           <MDBCardBody>
             <MDBCardTitle>{title}</MDBCardTitle>
