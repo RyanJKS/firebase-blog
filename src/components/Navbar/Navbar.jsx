@@ -3,26 +3,17 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import SignInForm from "../SignInForm/SignInForm";
 import { AuthContext } from "../../context/authContext";
-import { signOut } from "firebase/auth";
-import { auth } from "../../config/firebaseConfig";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import SettingMenu from "./SettingMenu";
+import AccessForm from "../AccessForm/AccessForm";
 
 function NavBar() {
   const { currentUser } = useContext(AuthContext);
   const [show, setShow] = useState(false);
 
   const navigate = useNavigate();
-
-  const handleLogOut = async () => {
-    try {
-      await signOut(auth);
-      navigate("/");
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const location = useLocation();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -30,16 +21,20 @@ function NavBar() {
   return (
     <Navbar bg="light" expand="lg" fixed="top">
       <Container fluid>
-        <Navbar.Brand href="/">Logo</Navbar.Brand>
+        <Navbar.Brand href="/">FireBlog</Navbar.Brand>
 
         {currentUser ? (
           <>
-            <Button variant="primary" onClick={() => navigate("/mypost")}>
-              My Posts
-            </Button>
-            <Button variant="primary" onClick={handleLogOut}>
-              Log Out
-            </Button>
+            {location.pathname === "/mypost" ? (
+              <Button variant="primary" onClick={() => navigate("/")}>
+                Home
+              </Button>
+            ) : (
+              <Button variant="primary" onClick={() => navigate("/mypost")}>
+                My Posts
+              </Button>
+            )}
+            <SettingMenu />
           </>
         ) : (
           <>
@@ -50,7 +45,7 @@ function NavBar() {
             <Modal show={show} onHide={handleClose}>
               <Modal.Header closeButton />
               <Modal.Body>
-                <SignInForm />
+                <AccessForm />
               </Modal.Body>
             </Modal>
           </>

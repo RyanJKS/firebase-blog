@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
   MDBBtn,
   MDBModal,
@@ -9,15 +9,13 @@ import {
   MDBModalBody,
   MDBModalFooter,
 } from "mdb-react-ui-kit";
-import { AuthContext } from "../../context/authContext";
 import { db } from "../../config/firebaseConfig";
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
-function UpdatePost() {
+function UpdatePost({ docId, title, description }) {
   const [optSmModal, setOptSmModal] = useState(false);
-  const [updateTitle, setUpdateTitle] = useState("");
-  const [updateDescription, setUpdateDescritpion] = useState("");
-  const { currentUser } = useContext(AuthContext);
+  const [updateTitle, setUpdateTitle] = useState(title);
+  const [updateDescription, setUpdateDescritpion] = useState(description);
 
   const toggleShow = () => setOptSmModal(!optSmModal);
 
@@ -60,7 +58,7 @@ function UpdatePost() {
                   className="form-control"
                   type="text"
                   required
-                  value={updateTitle}
+                  defaultValue={updateTitle}
                   onChange={(e) => setUpdateTitle(e.target.value)}
                 />
               </div>
@@ -73,7 +71,7 @@ function UpdatePost() {
                   cols="40"
                   className="form-control"
                   required
-                  value={updateDescription}
+                  defaultValue={updateDescription}
                   onChange={(e) => setUpdateDescritpion(e.target.value)}
                 />
               </div>

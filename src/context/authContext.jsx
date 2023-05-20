@@ -20,6 +20,7 @@ export const AuthContextProvider = (props) => {
 
   // specify which collection to get docs from
   const postsCollectionRef = collection(db, "posts");
+
   useEffect(() => {
     const getPosts = async () => {
       // data format = collection -> id -> post topics (title, datePosted, isCompleted)
@@ -36,7 +37,6 @@ export const AuthContextProvider = (props) => {
       } catch (err) {
         console.error(err);
       }
-
       //set data from database to useState
     };
 

@@ -7,18 +7,17 @@ import {
   MDBTabsContent,
   MDBTabsPane,
   MDBBtn,
-  MDBIcon,
   MDBInput,
 } from "mdb-react-ui-kit";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInWithPopup,
   updateProfile,
 } from "firebase/auth";
-import { auth, googleProvider } from "../../config/firebaseConfig";
+import { auth } from "../../config/firebaseConfig";
+import ExternalAuthIcons from "./ExternalAuthIcons";
 
-function SignInForm() {
+function AccessForm() {
   const [justifyActive, setJustifyActive] = useState("tab1");
 
   const handleJustifyClick = (value) => {
@@ -26,39 +25,6 @@ function SignInForm() {
       return;
     }
     setJustifyActive(value);
-  };
-
-  const googleAuth = async () => {
-    try {
-      await signInWithPopup(auth, googleProvider);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const LoginIcons = () => {
-    return (
-      <div
-        className="d-flex flex-row align-items-center justify-content-center"
-        style={{ width: "100%" }}
-      >
-        <MDBBtn tag="a" size="m">
-          <MDBIcon fab icon="facebook-f" />
-        </MDBBtn>
-
-        <MDBBtn tag="a" size="m">
-          <MDBIcon fab icon="twitter" />
-        </MDBBtn>
-
-        <MDBBtn tag="a" size="m" onClick={googleAuth}>
-          <MDBIcon fab icon="google" />
-        </MDBBtn>
-
-        <MDBBtn tag="a" size="m">
-          <MDBIcon fab icon="github" />
-        </MDBBtn>
-      </div>
-    );
   };
 
   const signInEmail = useRef(null);
@@ -120,14 +86,14 @@ function SignInForm() {
         </MDBTabsItem>
       </MDBTabs>
 
-      {/* REGISTER TAB */}
+      {/* SIGN IN FORM */}
 
       <MDBTabsContent>
         <MDBTabsPane show={justifyActive === "tab1"}>
           <div className="text-center mb-2">
             <p>Sign in with:</p>
 
-            <LoginIcons />
+            <ExternalAuthIcons />
 
             <p className="text-center mt-3">or:</p>
           </div>
@@ -155,12 +121,12 @@ function SignInForm() {
             </a>
           </p>
         </MDBTabsPane>
-
+        {/*REGISTRATION FORM */}
         <MDBTabsPane show={justifyActive === "tab2"}>
           <div className="text-center mb-3">
             <p>Sign up with:</p>
 
-            <LoginIcons />
+            <ExternalAuthIcons />
 
             <p className="text-center mt-3">or:</p>
           </div>
@@ -193,4 +159,4 @@ function SignInForm() {
   );
 }
 
-export default SignInForm;
+export default AccessForm;
