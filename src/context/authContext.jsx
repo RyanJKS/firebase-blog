@@ -7,10 +7,12 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = (props) => {
   const [currentUser, setCurrentUser] = useState("");
+  const [username, setUsername] = useState("");
 
   onAuthStateChanged(auth, async (user) => {
     if (user !== null) {
       setCurrentUser(user.uid);
+      setUsername(user.displayName);
     } else {
       setCurrentUser("");
     }
@@ -18,15 +20,15 @@ export const AuthContextProvider = (props) => {
 
   const [posts, setPosts] = useState([]);
 
-  // specify which collection to get docs from
-  const postsCollectionRef = collection(db, "posts");
-
   useEffect(() => {
     const getPosts = async () => {
       // data format = collection -> id -> post topics (title, datePosted, isCompleted)
       // each id has one post
       // use getDocs to get *ALL* the posts (all the id)
       // read data from database
+
+      // specify which collection to get docs from
+      const postsCollectionRef = collection(db, "posts");
       try {
         const data = await getDocs(postsCollectionRef);
         const filteredData = data.docs.map((doc) => ({
@@ -48,6 +50,7 @@ export const AuthContextProvider = (props) => {
       value={{
         currentUser,
         posts,
+        username,
       }}
     >
       {props.children}

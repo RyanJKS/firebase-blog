@@ -1,58 +1,156 @@
-import React, { useContext, useState } from "react";
-import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { AuthContext } from "../../context/authContext";
-import { useNavigate, useLocation } from "react-router-dom";
-import SettingMenu from "./SettingMenu";
-import AccessForm from "../AccessForm/AccessForm";
+import React, { useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import LocalFireDepartmentSharpIcon from "@mui/icons-material/LocalFireDepartmentSharp";
+import { useNavigate } from "react-router-dom";
+
+const pages = ["HOME", "MY POST"];
+const urls = ["/", "/mypost"];
 
 function NavBar() {
-  const { currentUser } = useContext(AuthContext);
-  const [show, setShow] = useState(false);
-
   const navigate = useNavigate();
-  const location = useLocation();
+  const [anchorElNav, setAnchorElNav] = useState(null);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const redirectPage = (url) => {
+    navigate(url);
+  };
 
   return (
-    <Navbar bg="light" expand="lg" fixed="top">
-      <Container fluid>
-        <Navbar.Brand href="/">FireBlog</Navbar.Brand>
+    <AppBar position="sticky">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <LocalFireDepartmentSharpIcon
+            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+          />
+          {/*LARGE SCREEN LOGO NAME*/}
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            FireBlog
+          </Typography>
 
-        {currentUser ? (
-          <>
-            {location.pathname === "/mypost" ? (
-              <Button variant="primary" onClick={() => navigate("/")}>
-                Home
-              </Button>
-            ) : (
-              <Button variant="primary" onClick={() => navigate("/mypost")}>
-                My Posts
-              </Button>
-            )}
-            <SettingMenu />
-          </>
-        ) : (
-          <>
-            <Button variant="primary" onClick={handleShow}>
-              Account
-            </Button>
+          {/*SMALLER SCREEN MENU ICON*/}
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            {/*SMALLER SCREEN WHAT APPEARS IN MENU ICON */}
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav} //BOX THAT OPENS
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              {pages.map((page, index) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography onClick={() => redirectPage(urls[index])}>
+                    {page}
+                  </Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          {/*SMALLER SCREEN FIREBLOG LOGO & NAME */}
+          <LocalFireDepartmentSharpIcon
+            sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
+          />
 
-            <Modal show={show} onHide={handleClose}>
-              <Modal.Header closeButton />
-              <Modal.Body>
-                <AccessForm />
-              </Modal.Body>
-            </Modal>
-          </>
-        )}
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              flexGrow: 1,
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            FireBlog
+          </Typography>
+          {/*LARGE SCREEN PATHS/PAGES AVAILABLE*/}
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {pages.map((page, index) => (
+              <Button
+                key={page}
+                onClick={() => redirectPage(urls[index])}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                {page}
+              </Button>
+            ))}
+          </Box>
+          {/*LARGE SCREEN ACCOUNT ICON */}
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Account Settings">
+              <IconButton
+                onClick={() => redirectPage("/account")}
+                sx={{ p: 0 }}
+              >
+                <Avatar
+                  alt="Remy Sharp"
+                  src="https://cdn-icons-png.flaticon.com/512/1177/1177568.png"
+                />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        </Toolbar>
       </Container>
-    </Navbar>
+    </AppBar>
   );
 }
-
 export default NavBar;

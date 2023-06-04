@@ -1,24 +1,15 @@
 import "./App.css";
 import NavBar from "./components/Navbar/Navbar";
-import Footer from "./pages/Footer";
-import { AuthContextProvider } from "./context/authContext";
-
+import Footer from "./components/Footer";
 import RoutingPaths from "./pages/RoutingPaths";
-import OverviewDialog from "./components/OverviewDialog";
 
 function App() {
   return (
     <>
-      <AuthContextProvider>
-        <div className="App">
-          <NavBar />
-          <div className="my-5" />
-          <OverviewDialog />
-          <RoutingPaths />
-          <br />
-        </div>
-        <Footer />
-      </AuthContextProvider>
+      <NavBar />
+      <div className="p-2" />
+      <RoutingPaths />
+      <Footer />
     </>
   );
 }
