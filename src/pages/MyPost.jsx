@@ -29,7 +29,7 @@ function MyPost() {
           <PostCard post={post} />
         </Grid>
       ));
-    } else {
+    } else if (currentUser && personalPosts.length === 0) {
       return (
         <Grid item xs={12} lg={12}>
           <h1 style={errorMessageStyle}>

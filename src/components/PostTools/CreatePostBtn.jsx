@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import { db, auth } from "../../config/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 
-const style = {
+const modalStyle = {
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -15,6 +15,15 @@ const style = {
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
+};
+
+const btnStyle = {
+  width: "100%",
+  display: "flex",
+  paddingTop: "20px",
+  justifyContent: "center",
+  flexDirection: "column",
+  alignItems: "center",
 };
 
 export default function CreatePostBtn() {
@@ -41,16 +50,7 @@ export default function CreatePostBtn() {
   };
 
   return (
-    <div
-      style={{
-        width: "100%",
-        display: "flex",
-        paddingTop: "20px",
-        justifyContent: "center",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <div style={btnStyle}>
       <Button variant="contained" onClick={handleOpen}>
         Create Post
       </Button>
@@ -60,7 +60,7 @@ export default function CreatePostBtn() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={modalStyle}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Create Post
           </Typography>

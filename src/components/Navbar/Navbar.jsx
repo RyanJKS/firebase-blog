@@ -38,7 +38,11 @@ function NavBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <LocalFireDepartmentSharpIcon
-            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+            sx={{
+              display: { xs: "none", md: "flex" },
+              mr: 1,
+              color: "#FBB741",
+            }}
           />
           {/*LARGE SCREEN LOGO NAME*/}
           <Typography
@@ -101,7 +105,11 @@ function NavBar() {
           </Box>
           {/*SMALLER SCREEN FIREBLOG LOGO & NAME */}
           <LocalFireDepartmentSharpIcon
-            sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
+            sx={{
+              display: { xs: "flex", md: "none" },
+              mr: 1,
+              color: "#FBB741",
+            }}
           />
 
           <Typography
