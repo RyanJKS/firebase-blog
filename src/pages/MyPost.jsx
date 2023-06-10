@@ -12,7 +12,7 @@ const errorMessageStyle = {
 };
 
 function MyPost() {
-  const { currentUser, posts } = useContext(AuthContext);
+  const { currentUser, posts, imageList } = useContext(AuthContext);
 
   const filteredById = (post) => {
     if (post.userId === currentUser) {
@@ -40,6 +40,9 @@ function MyPost() {
     }
   };
 
+  console.log(posts);
+  console.log(imageList);
+
   return (
     <>
       {currentUser ? (
@@ -58,7 +61,7 @@ function MyPost() {
         alignItems="center"
         spacing={4}
       >
-        <CheckUserPost />
+        {CheckUserPost()}
       </Grid>
     </>
   );
