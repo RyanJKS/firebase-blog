@@ -1,21 +1,11 @@
 import React, { useState } from "react";
+import "./UpdatePostBtn.css";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { db } from "../../config/firebaseConfig";
-import { doc, updateDoc } from "firebase/firestore";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "80vw",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-};
+import { UpdatePost } from "../../../helper/updatingPost";
+import Swal from "sweetalert2";
 
 function UpdatePostBtn({ docId, title, description }) {
   const [open, setOpen] = useState(false);
@@ -25,18 +15,16 @@ function UpdatePostBtn({ docId, title, description }) {
   const [updateTitle, setUpdateTitle] = useState(title);
   const [updateDescription, setUpdateDescritpion] = useState(description);
 
-  const handleUpdatePost = async (docId) => {
-    const postDoc = doc(db, "posts", docId);
-    try {
-      await updateDoc(postDoc, {
-        postTitle: updateTitle,
-        postDescription: updateDescription,
-      });
-    } catch (err) {
-      console.error(err);
-    }
+  const handleUpdatePost = async () => {
+    const updateData = {
+      postTitle: updateTitle,
+      postDescription: updateDescription,
+    };
+    UpdatePost(docId, updateData);
     handleClose();
-    window.location.reload();
+    Swal.fire("Posted!", "Your post hase been updated.", "success").then(() => {
+      window.location.reload();
+    });
   };
 
   return (
@@ -50,7 +38,7 @@ function UpdatePostBtn({ docId, title, description }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box className="update-card-style">
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Update Post
           </Typography>
@@ -89,9 +77,9 @@ function UpdatePostBtn({ docId, title, description }) {
             <Button
               variant="contained"
               color="success"
-              onClick={() => handleUpdatePost(docId)}
+              onClick={handleUpdatePost}
             >
-              Post
+              Update Post
             </Button>
           </div>
 

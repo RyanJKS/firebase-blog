@@ -1,0 +1,15 @@
+.update-card-style{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vh;
+    background-color:whitesmoke ;
+    border-radius: 25px;
+    box-shadow: 24;
+    padding: 4px;
+    display: flex;
+    flex-direction:column ;
+    justify-content: flex-start;
+}

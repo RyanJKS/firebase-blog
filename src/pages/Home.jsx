@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import CreatePostBtn from "../components/PostTools/CreatePostBtn";
+import CreatePostBtn from "../components/PostTools/CreateBtn/CreatePostBtn";
 import { AuthContext } from "../context/authContext";
 import Grid from "@mui/material/Grid";
 import PostCard from "../components/PostCard/PostCard";

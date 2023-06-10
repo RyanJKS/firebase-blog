@@ -10,6 +10,7 @@ export const AuthContextProvider = (props) => {
   const [currentUser, setCurrentUser] = useState("");
   const [username, setUsername] = useState("");
 
+  //run over every render to check if user is authenticated & logged in
   onAuthStateChanged(auth, async (user) => {
     if (user !== null) {
       setCurrentUser(user.uid);
@@ -20,70 +21,24 @@ export const AuthContextProvider = (props) => {
   });
 
   const [posts, setPosts] = useState([]);
-  const [imageList, setImageList] = useState([]);
 
-  // useEffect(() => {
-  //   const getPosts = async () => {
-  //     // data format = collection -> id -> post topics (title, datePosted, isCompleted)
-  //     // each id has one post
-  //     // use getDocs to get *ALL* the posts (all the id)
-  //     // read data from database
-
-  //     // specify which collection to get docs from
-  //     const postsCollectionRef = collection(db, "posts");
-  //     try {
-  //       const data = await getDocs(postsCollectionRef);
-  //       const filteredData = data.docs.map((doc) => ({
-  //         ...doc.data(),
-  //         id: doc.id,
-  //       }));
-  //       setPosts(filteredData);
-  //       console.log(filteredData);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //     //set data from database to useState
-  //   };
-
-  //   const getImages = async () => {
-  //     const imageListRef = ref(storage, "images/");
-  //     try {
-  //       const response = await listAll(imageListRef);
-  //       console.log(response);
-  //       response.items.map(async (item) => {
-  //         const url = await getDownloadURL(item);
-  //         setImageList((prev) => {
-  //           if (!prev.includes(url)) {
-  //             return [...prev, url];
-  //           }
-  //           return prev;
-  //         });
-  //       });
-  //     } catch (error) {
-  //       console.error("Error fetching and setting image list:", error);
-  //     }
-  //   };
-
-  //   getPosts();
-  //   getImages();
-  // }, []);
-
+  // data format = collection -> id -> post topics (title, datePosted, isCompleted)
   useEffect(() => {
     const getPostsAndImages = async () => {
-      const postsCollectionRef = collection(db, "posts");
-      const imageListRef = ref(storage, "images/");
+      const postsCollectionRef = collection(db, "posts"); // specify which collection to get docs from
+      const imageListRef = ref(storage, "images/"); // specify which collection to get docs from
 
       try {
         const [postsData, imageData] = await Promise.all([
           getDocs(postsCollectionRef),
           listAll(imageListRef),
         ]);
-
+        //filter response to only get posts details
         const filteredPostsData = postsData.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
         }));
-
+        //filter reponse to asign id to unique download url and output new list
         const filteredImageList = await Promise.all(
           imageData.items.map(async (item) => {
             const url = await getDownloadURL(item);
@@ -93,7 +48,7 @@ export const AuthContextProvider = (props) => {
             };
           })
         );
-        console.log(filteredImageList);
+        // combine id from each filteredPostsData object to each id from filteredImageList object
         const mergedPostsData = filteredPostsData.map((post) => {
           const matchingImage = filteredImageList.find(
             (image) => image.id === post.id
@@ -107,8 +62,11 @@ export const AuthContextProvider = (props) => {
           return post;
         });
 
+        //sort the posts by timestamp that they were created on
+        mergedPostsData.sort((a, b) => {
+          return new Date(b.createdOn) - new Date(a.createdOn);
+        });
         setPosts(mergedPostsData);
-        setImageList(filteredImageList.map((image) => image.url));
       } catch (error) {
         console.error("Error fetching and setting data:", error);
       }
@@ -123,7 +81,6 @@ export const AuthContextProvider = (props) => {
         currentUser,
         posts,
         username,
-        imageList,
       }}
     >
       {props.children}

@@ -1,17 +1,18 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/authContext";
-import { deleteUser, signOut } from "firebase/auth";
-import { auth, db } from "../config/firebaseConfig";
-import { doc, deleteDoc } from "firebase/firestore";
+import { signOut } from "firebase/auth";
+import { auth } from "../config/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import Access from "../components/Forms/Access";
 import Stack from "@mui/material/Stack";
 import { Button } from "@mui/material";
 import Swal from "sweetalert2";
+import { DeleteUserAndFiles } from "../helper/deleteAccount";
 
 function Account() {
   const navigate = useNavigate();
   const { currentUser, username, posts } = useContext(AuthContext);
+  const userInfo = auth?.currentUser;
 
   const handleLogOut = async () => {
     try {
@@ -22,20 +23,6 @@ function Account() {
     }
   };
 
-  const deleteUserAccount = async (userInfo) => {
-    try {
-      await deleteUser(userInfo);
-      navigate("/");
-      window.location.reload();
-    } catch (err) {
-      console.error(err);
-      Swal.fire(
-        "Oops...!",
-        "There was an error deleting your account. Pleas try again.",
-        "error"
-      );
-    }
-  };
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
       confirmButton: "btn btn-success",
@@ -44,9 +31,7 @@ function Account() {
     buttonsStyling: false,
   });
 
-  const handleDelete = async () => {
-    const userInfo = auth?.currentUser;
-
+  const handleAccountDelete = async () => {
     swalWithBootstrapButtons
       .fire({
         title: "Are you sure?",
@@ -60,22 +45,15 @@ function Account() {
       .then((result) => {
         if (result.isConfirmed) {
           // FIND POSTS AND USER IN DATABASE & DELETE
-          try {
-            posts.forEach(async (document) => {
-              if (document.userId === currentUser) {
-                const docRef = doc(db, "posts", document.id);
-                await deleteDoc(docRef).catch((err) => console.log(err));
-              }
-            });
-            //FIND AND DELETE USER
-            deleteUserAccount(userInfo);
-          } catch (err) {
-            Swal.fire(
-              "Oops...!",
-              "There was an error deleting your account. Pleas try again.",
-              "error"
-            );
-          }
+          DeleteUserAndFiles(currentUser, userInfo, posts);
+          Swal.fire(
+            "Account Sucessfully Deleted",
+            "Your account has been deleted",
+            "success"
+          ).then(() => {
+            navigate("/");
+            window.location.reload();
+          });
         } else if (
           /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
@@ -89,20 +67,9 @@ function Account() {
       });
   };
 
-  return (
-    <>
-      {!currentUser ? (
-        <div
-          style={{
-            height: "75vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Access />
-        </div>
-      ) : (
+  const UserAuthentication = () => {
+    if (currentUser) {
+      return (
         <Stack
           direction="column"
           justifyContent="space-evenly"
@@ -114,13 +81,28 @@ function Account() {
           <Button variant="contained" onClick={handleLogOut}>
             Log Out
           </Button>
-          <Button variant="contained" onClick={handleDelete}>
+          <Button variant="contained" onClick={handleAccountDelete}>
             Delete Account
           </Button>
         </Stack>
-      )}
-    </>
-  );
+      );
+    } else {
+      return (
+        <div
+          style={{
+            height: "75vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Access />
+        </div>
+      );
+    }
+  };
+
+  return <UserAuthentication />;
 }
 
 export default Account;

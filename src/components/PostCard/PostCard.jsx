@@ -12,9 +12,9 @@ import {
   MDBCol,
 } from "mdb-react-ui-kit";
 import { AuthContext } from "../../context/authContext";
-import { db } from "../../config/firebaseConfig";
-import { deleteDoc, doc } from "firebase/firestore";
-import UpdatePostBtn from "../PostTools/UpdatePostBtn";
+import UpdatePostBtn from "../PostTools/UpdateBtn/UpdatePostBtn";
+import { DeletePostAndImage } from "../../helper/deletingPost";
+import template_banner_image from "../../assets/template_banner_image.PNG";
 import Swal from "sweetalert2";
 
 export default function PostCard({ post }) {
@@ -26,21 +26,11 @@ export default function PostCard({ post }) {
     userId,
     id,
     authorUsername,
-    timestamp,
+    createdOn,
     imageUrl,
   } = post;
 
-  const deletePost = async (id) => {
-    const postDoc = doc(db, "posts", id);
-    try {
-      await deleteDoc(postDoc);
-      window.location.reload();
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleDeletePost = async (id) => {
+  const handleDelete = async (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -51,7 +41,14 @@ export default function PostCard({ post }) {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        deletePost(id);
+        DeletePostAndImage(id);
+        Swal.fire(
+          "Deleted",
+          "Your post and image has been deleted",
+          "success"
+        ).then(() => {
+          window.location.reload();
+        });
       }
     });
   };
@@ -66,7 +63,7 @@ export default function PostCard({ post }) {
               title={postTitle}
               description={postDescription}
             />
-            <Button variant="outlined" onClick={() => handleDeletePost(id)}>
+            <Button variant="outlined" onClick={() => handleDelete(id)}>
               Delete
             </Button>
           </div>
@@ -80,10 +77,7 @@ export default function PostCard({ post }) {
       <MDBRow className="g-0">
         <MDBCol md="5">
           <MDBCardImage
-            src={
-              imageUrl ||
-              "https://imgv3.fotor.com/images/blog-cover-image/part-blurry-image.jpg"
-            }
+            src={imageUrl || template_banner_image}
             alt="something"
             fluid
           />
@@ -91,8 +85,9 @@ export default function PostCard({ post }) {
         <MDBCol md="7">
           <MDBCardBody>
             <MDBCardTitle>{postTitle}</MDBCardTitle>
-            <MDBCardText>
+            <MDBCardText className="d-flex justify-content-between">
               <small className="text-muted">Author: {authorUsername}</small>
+              <small className="text-muted">Created On: {createdOn}</small>
             </MDBCardText>
             <MDBCardText className="overflow-hidden">
               {postDescription}

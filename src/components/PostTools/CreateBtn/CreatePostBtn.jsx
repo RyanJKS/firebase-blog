@@ -4,9 +4,8 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { db, auth, storage } from "../../config/firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
-import { ref, uploadBytes } from "firebase/storage";
+import { CreatePostAndImage } from "../../../helper/creatingPost";
+import Swal from "sweetalert2";
 
 export default function CreatePostBtn() {
   const [open, setOpen] = useState(false);
@@ -15,46 +14,22 @@ export default function CreatePostBtn() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const postsCollectionRef = collection(db, "posts");
-
-  const uploadImage = async (postId) => {
-    const imageRef = ref(storage, `images/${postId}`);
-    try {
-      await uploadBytes(imageRef, imageUpload);
-    } catch (err) {
-      alert(err);
-    }
-  };
   // CREATE POST FUNCTION
   const onSubmit = async (e) => {
     e.preventDefault();
     const { title, description } = e.target.elements;
-    const timestamp = new Date();
-    const postData = {
-      postTitle: title.value,
-      postDescription: description.value,
-      userId: auth.currentUser?.uid,
-      authorUsername: auth?.currentUser?.displayName,
-      timestamp: timestamp.toISOString(),
-    };
-
-    try {
-      //post the data
-      let docRef = await addDoc(postsCollectionRef, postData);
-      // Assign the unique doc ID from the post as the image title
-      uploadImage(docRef.id);
-    } catch (err) {
-      console.error(err);
-    }
-    e.target.reset();
+    CreatePostAndImage(title.value, description.value, imageUpload);
     handleClose();
-    window.location.reload();
+    Swal.fire("Posted!", "Your post is now live.", "success").then(() => {
+      e.target.reset();
+      window.location.reload();
+    });
   };
 
-  //GET IMAGE URL AND SET IMAGE
+  //PREVIEW IMAGE FUNCTION
   const handlePreviewImage = (event) => {
     const file = event.target.files[0];
-    setImageUpload(file);
+
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -65,7 +40,8 @@ export default function CreatePostBtn() {
 
     if (file) {
       reader.readAsDataURL(file);
-    }
+      setImageUpload(file);
+    } else setImageUpload(null);
   };
 
   const removeImage = () => {
@@ -119,21 +95,17 @@ export default function CreatePostBtn() {
           {/*IF THERE IS AN IMAGE, POST IT */}
           {previewImage && (
             <div className="image-container">
-              <img
-                src={previewImage}
-                alt={previewImage}
-                style={{ maxWidth: "100%", maxHeight: "100%" }}
-              />
+              <img src={previewImage} alt={previewImage} />
             </div>
           )}
-          <section
+          <div
             style={{
               display: "flex",
               justifyContent: "center",
             }}
           >
             {showImageBtn()}
-          </section>
+          </div>
           {/*FORM CONTENT */}
           <form onSubmit={onSubmit}>
             <div className="mb-3">
