@@ -97,7 +97,7 @@ Unleash your creativity and express yourself through thought-provoking blog post
 This fully responsive application combines the convenience of Firebase user authentication with seamless post creation, editing, and deletion capabilities. With the option to sign up and create a personalized profile or effortlessly connect via external platforms like Google, GitHub, or Facebook, this app ensures a secure and hassle-free user experience.
 
 <div align="center">
-  <img src="/README/intro.PNG" alt="Usage GIF">
+  <img src="/README/homepage.PNG" alt="Usage GIF">
 </div>
 
 <div align="center">
