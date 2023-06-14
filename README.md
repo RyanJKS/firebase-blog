@@ -1,70 +1,192 @@
-# Getting Started with Create React App
+<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<a name="readme-top"></a>
 
-## Available Scripts
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-In the project directory, you can run:
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
 
-### `npm start`
+<div align="center">
+  <img src="/README/signature.PNG" alt="Logo">
+</div>
+<h3 align="center">FireBlog</h3>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  <p align="center">
+    Welcome to my FireBlog's code!
+    <br/>
+    Introducing the immersive and dynamic blog app powered by React and Firebase!
+    <br />
+    <a href="https://github.com/RyanJKS/firebase-blog/tree/master/src"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://firebase-blog-coral.vercel.app/">View Demo</a>
+    ·
+    <a href="https://jhelan.dev/">View Portfolio Website</a>
+    ·
+    <a href="https://github.com/RyanJKS/firebase-blog/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/RyanJKS/firebase-blog/issues">Request Feature</a>
+  </p>
+</div>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#extra-packages">Extra Packages</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <!-- <li><a href="#roadmap">Roadmap</a></li> -->
+    <li><a href="#contributing">Contributing</a></li>
+    <!-- <li><a href="#license">License</a></li> -->
+    <li><a href="#contact">Contact</a></li>
+    <!-- <li><a href="#acknowledgments">Acknowledgments</a></li> -->
+  </ol>
+</details>
 
-### `npm test`
+<!-- ABOUT THE PROJECT -->
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## About The Project
 
-### `npm run build`
+Unleash your creativity and express yourself through thought-provoking blog posts that capture your unique perspective. The app's intuitive interface empowers you to craft engaging content, update your posts with ease, and even delete them if desired. To enhance your storytelling, you can effortlessly upload images, which will be securely stored in the reliable Firebase database.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<!-- put gif video here og how it fully works -->
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<div align="center">
+  <img src="/README/intro.gif" alt="Usage GIF">
+</div>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### `npm run eject`
+### Built With
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- [![React][React.js]][React-url]
+- [![Material UI][Material-UI.js]][Material-UI-url]
+- [![React Router][ReactRouter.js]][ReactRouter-url]
+- [![Firebase][Firebase.js]][Firebase-url]
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Extra Packages
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Material UI Icons
+- Vercel (Deployment)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Learn More
+<!-- USAGE EXAMPLES -->
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Usage
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This fully responsive application combines the convenience of Firebase user authentication with seamless post creation, editing, and deletion capabilities. With the option to sign up and create a personalized profile or effortlessly connect via external platforms like Google, GitHub, or Facebook, this app ensures a secure and hassle-free user experience.
 
-### Code Splitting
+<div align="center">
+  <img src="/README/intro.PNG" alt="Usage GIF">
+</div>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<div align="center">
+  <img src="/README/registration.PNG" alt="Usage GIF">
+</div>
 
-### Analyzing the Bundle Size
+Rest assured, your privacy and identity are safeguarded through the robust Firebase authentication system. This ensures that your personal information remains confidential and accessible only to you.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+With its captivating design and seamless functionality, this React-based blog app promises to captivate readers and ignite their curiosity to delve deeper into the project.
 
-### Making a Progressive Web App
+<div align="center">
+  <img src="/README/create.PNG" alt="Usage GIF">
+</div>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Experience the power of secure authentication, seamless post management, and the freedom to express yourself in an engaging and visually appealing environment. Discover more about this exciting project and embark on a journey of inspiration and creativity today!
 
-### Advanced Configuration
+<div align="center">
+  <img src="/README/loggedin.PNG" alt="Usage GIF">
+</div>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Deployment
+<!-- GETTING STARTED -->
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Getting Started
 
-### `npm run build` fails to minify
+In order to get started you will need to do the libraries mentioned above and configure your repository using the following steps:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Prerequisites
+
+NPM is essential before any further steps are made since it is used to install all the necessary libraries for this project.
+
+- npm
+  ```sh
+  npm install npm@latest -g
+  ```
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/RyanJKS/firebase-blog-app.git
+   ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTRIBUTING -->
+
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Contact
+
+Jhelan Suggun - [@linkedIn](https://www.linkedin.com/in/jhelan-suggun-jks7n99/) - jksuggun@hotmail.co.uk
+
+Project Link: [https://github.com/RyanJKS/firebase-blog-app](https://github.com/RyanJKS/firebase-blog-app)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+[contributors-shield]: https://img.shields.io/github/contributors/RyanJKS/firebase-blog.svg?style=for-the-badge
+[contributors-url]: https://github.com/RyanJKS/firebase-blog/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/RyanJKS/firebase-blog.svg?style=for-the-badge
+[forks-url]: https://github.com/RyanJKS/firebase-blog/network/members
+[stars-shield]: https://img.shields.io/github/stars/RyanJKS/firebase-blog.svg?style=for-the-badge
+[stars-url]: https://github.com/RyanJKS/firebase-blog/stargazers
+[issues-shield]: https://img.shields.io/github/issues/RyanJKS/firebase-blog.svg?style=for-the-badge
+[issues-url]: https://github.com/RyanJKS/firebase-blog/issues
+[license-shield]: https://img.shields.io/github/license/RyanJKS/firebase-blog.svg?style=for-the-badge
+[license-url]: https://github.com/RyanJKS/firebase-blog/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/jhelan-suggun-jks7n99/
+[product-screenshot]: images/screenshot.png
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Material-UI.js]: https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=MUI&logoColor=white
+[Material-UI-url]: https://mui.com/material-ui/getting-started/overview/
+[ReactRouter.js]: https://img.shields.io/badge/ReactRouter-007FFF?style=for-the-badge&logo=React-Router&logoColor=white
+[ReactRouter-url]: https://reactrouter.com/en/main
+[Firebase.js]: https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=white
+[Firebase-url]: https://firebase.google.com/

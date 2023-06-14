@@ -43,6 +43,12 @@ function OverviewDialog() {
               }}
             >
               Welcome to the FireBlog!
+              <br />
+              Click on the user account figure to sign in user using either
+              email and password or through external authentication like Google
+              or Github. Once signed in, you can Create,Update and Delete custom
+              posts with your own uploaded images. Have fun making content and
+              seeing what others have made!
             </Container>
           </CardContent>
         </Collapse>

@@ -68,13 +68,13 @@ function ExternalAuthIcons() {
       className="d-flex flex-row align-items-center justify-content-center"
       style={{ width: "100%" }}
     >
-      <MDBBtn tag="a" size="m" onClick={facebookAuth}>
+      {/* <MDBBtn tag="a" size="m" onClick={facebookAuth}>
         <MDBIcon fab icon="facebook-f" />
       </MDBBtn>
 
       <MDBBtn tag="a" size="m">
         <MDBIcon fab icon="twitter" />
-      </MDBBtn>
+      </MDBBtn> */}
 
       <MDBBtn tag="a" size="m" onClick={googleAuth}>
         <MDBIcon fab icon="google" />
