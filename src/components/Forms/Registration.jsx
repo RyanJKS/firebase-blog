@@ -1,6 +1,10 @@
 import React, { useRef } from "react";
 import { MDBTabsPane, MDBBtn, MDBInput } from "mdb-react-ui-kit";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "../../config/firebaseConfig";
 import ExternalAuthIcons from "./ExternalAuthIcons";
 import Swal from "sweetalert2";
@@ -36,6 +40,26 @@ function Registration({ currentTab, switchTab }) {
       alert("Please make sure your password is more than 6 characters.");
     }
   };
+
+  const handleDemoAccount = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, "demo@demo.com", "demo123456");
+
+      Swal.fire(
+        "Success!",
+        "You have successfully signed in using the demo account.",
+        "success"
+      ).then(() => {
+        navigate("/");
+      });
+    } catch (err) {
+      Swal.fire(
+        "Oops...!",
+        "Error signing in using demo account. Please try again.",
+        "error"
+      );
+    }
+  };
   return (
     <MDBTabsPane show={currentTab === "tab2"}>
       <div className="text-center mb-2">
@@ -67,6 +91,10 @@ function Registration({ currentTab, switchTab }) {
 
       <MDBBtn className="mb-4 w-100" onClick={signUp}>
         Sign up
+      </MDBBtn>
+      <p className="text-center">or use:</p>
+      <MDBBtn className="mb-4 w-100" onClick={handleDemoAccount}>
+        Demo Account
       </MDBBtn>
       <p className="text-center">
         Already a member?{" "}
