@@ -44,6 +44,7 @@
       <ul>
         <li><a href="#built-with">Built With</a></li>
         <li><a href="#extra-packages">Extra Packages</a></li>
+        <li><a href="#functionalities">Functionalities</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -87,6 +88,17 @@ Unleash your creativity and express yourself through thought-provoking blog post
 
 - Material UI Icons
 - Vercel (Deployment)
+
+### Functionalities
+
+- Users can create personalized profiles for the blog app.
+- Users must authenticate their accounts either by creating a profile within the app or by using external platforms like Google, GitHub, or Facebook.
+- Users will have the ability to securely log in and log out of the app.
+- Users should be able to update their posts easily, ensuring their content remains fresh and relevant.
+- Users will have the option to delete their posts if desired.
+- Users can upload images to enhance their blog posts.
+- Users can explore and view posts created by other users.
+- Users will have a responsive and seamless experience across various devices.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
