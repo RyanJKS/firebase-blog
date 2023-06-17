@@ -23,16 +23,18 @@
     justify-content: flex-start;
 }
 
-
 .image-container{
-    height: 300px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+height: 250px;
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+border-radius: 25px;
 }
 
-@media screen and (max-width: 800px) {
-    .image-container{
-        height: 180px;
-    }
-} 
+.image-container img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}

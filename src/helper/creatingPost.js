@@ -1,7 +1,6 @@
 import { db, auth, storage } from "../config/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
-import { CurrentTimeStamp } from "./timeConversion";
 
 const postsCollectionRef = collection(db, "posts");
 
@@ -15,7 +14,7 @@ const UploadImage = async (postId, banner_image) => {
 };
 
 export const CreatePostAndImage = async (title, description, banner_image) => {
-  const todayDate = CurrentTimeStamp();
+  const todayDate = Date.now();
   const postData = {
     postTitle: title,
     postDescription: description,

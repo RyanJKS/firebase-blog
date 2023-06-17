@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./CreatePostBtn.css";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -26,22 +26,41 @@ export default function CreatePostBtn() {
     });
   };
 
-  //PREVIEW IMAGE FUNCTION
-  const handlePreviewImage = (event) => {
-    const file = event.target.files[0];
+  const fileInputRef = useRef(null);
 
-    const reader = new FileReader();
+  const handleDrop = (event) => {
+    event.preventDefault();
+    handleImageUpload(event.dataTransfer.files);
+  };
 
-    reader.onload = () => {
-      if (reader.readyState === 2) {
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleImageUpload = (files) => {
+    // Handle the file upload logic here
+    // You can access the selected file(s) using the 'files' parameter
+    const selectedFile = files[0];
+    setImageUpload(selectedFile);
+
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = () => {
         setPreviewImage(reader.result);
-      }
-    };
+      };
 
-    if (file) {
-      reader.readAsDataURL(file);
-      setImageUpload(file);
-    } else setImageUpload(null);
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+
+  const handleClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = (event) => {
+    handleImageUpload(event.target.files);
+    setImageUpload(event.target.files[0]);
   };
 
   const removeImage = () => {
@@ -49,30 +68,22 @@ export default function CreatePostBtn() {
     setImageUpload(null);
   };
 
-  //DISPLAY EITHER ADD IMAGE OR REMOVE IMAGE BASED ON STATE OF IMAGE
-  const showImageBtn = () => {
-    if (previewImage !== null) {
-      return (
-        <Button variant="contained" color="error" onClick={removeImage}>
-          Remove Image
-        </Button>
-      );
+  const showImage = () => {
+    if (previewImage) {
+      return <img src={previewImage} alt={previewImage} />;
     } else {
       return (
-        <label
-          style={{
-            cursor: "pointer",
-          }}
-        >
-          + Add Image
+        <>
+          + Add Image{" "}
           <input
             type="file"
             name="images"
-            onChange={handlePreviewImage}
+            onChange={handleFileChange}
             style={{ display: "none" }}
-            accept="image/png, image/jpeg, image/webp"
+            accept="image/png, image/jpeg, image/webp, image/jpg"
+            ref={fileInputRef}
           />
-        </label>
+        </>
       );
     }
   };
@@ -92,20 +103,21 @@ export default function CreatePostBtn() {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Create Post
           </Typography>
-          {/*IF THERE IS AN IMAGE, POST IT */}
-          {previewImage && (
-            <div className="image-container">
-              <img src={previewImage} alt={previewImage} />
-            </div>
-          )}
+          {/*IMAGE CONTAINER*/}
           <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-            }}
+            className="image-container"
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            onClick={handleClick}
           >
-            {showImageBtn()}
+            {showImage()}
           </div>
+          {previewImage ? (
+            <Button variant="contained" color="error" onClick={removeImage}>
+              Remove Image
+            </Button>
+          ) : null}
+
           {/*FORM CONTENT */}
           <form onSubmit={onSubmit}>
             <div className="mb-3">
@@ -119,12 +131,13 @@ export default function CreatePostBtn() {
                 Description
               </label>
               <textarea
-                rows={previewImage ? "7" : "17"}
+                rows="8"
                 className="form-control"
                 id="description"
                 required
               />
             </div>
+            {/*BUTTONS */}
             <div style={{ display: "flex", justifyContent: "space-evenly" }}>
               <Button variant="contained" color="error" onClick={handleClose}>
                 Close

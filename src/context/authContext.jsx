@@ -64,7 +64,7 @@ export const AuthContextProvider = (props) => {
 
         //sort the posts by timestamp that they were created on
         mergedPostsData.sort((a, b) => {
-          return new Date(b.createdOn) - new Date(a.createdOn);
+          return new Date(b.createdOn.seconds) - new Date(a.createdOn.seconds);
         });
         setPosts(mergedPostsData);
       } catch (error) {

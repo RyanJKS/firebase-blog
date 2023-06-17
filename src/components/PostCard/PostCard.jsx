@@ -15,6 +15,7 @@ import { AuthContext } from "../../context/authContext";
 import UpdatePostBtn from "../PostTools/UpdateBtn/UpdatePostBtn";
 import { DeletePostAndImage } from "../../helper/deletingPost";
 import template_banner_image from "../../assets/template_banner_image.PNG";
+import { TimeConversion } from "../../helper/timeConversion";
 import Swal from "sweetalert2";
 
 export default function PostCard({ post }) {
@@ -29,6 +30,8 @@ export default function PostCard({ post }) {
     createdOn,
     imageUrl,
   } = post;
+
+  const timeCreated = TimeConversion(createdOn);
 
   const handleDelete = async (id) => {
     Swal.fire({
@@ -87,7 +90,7 @@ export default function PostCard({ post }) {
             <MDBCardTitle>{postTitle}</MDBCardTitle>
             <MDBCardText className="d-flex justify-content-between">
               <small className="text-muted">Author: {authorUsername}</small>
-              <small className="text-muted">Created On: {createdOn}</small>
+              <small className="text-muted">Created On: {timeCreated}</small>
             </MDBCardText>
             <MDBCardText className="overflow-hidden">
               {postDescription}

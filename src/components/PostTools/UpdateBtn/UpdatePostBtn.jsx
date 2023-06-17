@@ -62,7 +62,7 @@ function UpdatePostBtn({ docId, title, description }) {
               Description
             </label>
             <textarea
-              rows="15"
+              rows="18"
               cols="40"
               className="form-control"
               required
